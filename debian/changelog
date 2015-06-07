@@ -1,0 +1,173 @@
+lxcfs (0.9-vivid-ubuntu8) vivid; urgency=medium
+
+  * packaging for vivid
+
+ -- Mathieu Le Marec - Pasquet <kiorky@cryptelium.net>  Sun, 07 Jun 2015 13:10:38 +0200
+
+lxcfs (0.9-vivid-ubuntu7) vivid; urgency=medium
+
+  * packaging for trusty
+
+ -- Mathieu Le Marec - Pasquet <kiorky@cryptelium.net>  Sun, 07 Jun 2015 13:10:36 +0200
+
+lxcfs (0.9-trusty-ubuntu6) trusty; urgency=medium
+
+  * packaging for vivid
+
+ -- Mathieu Le Marec - Pasquet <kiorky@cryptelium.net>  Sun, 07 Jun 2015 13:10:31 +0200
+
+lxcfs (0.9-vivid-ubuntu5) vivid; urgency=medium
+
+  * packaging for trusty
+
+ -- Mathieu Le Marec - Pasquet <kiorky@cryptelium.net>  Sun, 07 Jun 2015 13:10:28 +0200
+
+lxcfs (0.9-trusty-ubuntu4) trusty; urgency=medium
+
+  * packaging for vivid
+
+ -- Mathieu Le Marec - Pasquet <kiorky@cryptelium.net>  Sun, 07 Jun 2015 13:05:11 +0200
+
+lxcfs (0.9-vivid-ubuntu3) vivid; urgency=medium
+
+  * packaging for trusty
+
+ -- Mathieu Le Marec - Pasquet <kiorky@cryptelium.net>  Sun, 07 Jun 2015 13:05:08 +0200
+
+lxcfs (0.9-trusty-ubuntu2) trusty; urgency=medium
+
+  * packaging for vivid
+
+ -- Mathieu Le Marec - Pasquet <kiorky@cryptelium.net>  Sun, 07 Jun 2015 13:03:40 +0200
+
+lxcfs (0.9-trusty0) trusty; urgency=medium
+
+  * No-change backport to utopic
+
+ -- Stéphane Graber <stgraber@stgraber.net>  Mon, 20 Apr 2015 18:31:15 +0000
+
+lxcfs (0.7-0ubuntu4) vivid; urgency=medium
+
+  * Add some more sanity checks (LP: #1413405)
+
+ -- Serge Hallyn <serge.hallyn@ubuntu.com>  Mon, 20 Apr 2015 08:42:18 -0500
+
+lxcfs (0.7-0ubuntu3) vivid; urgency=medium
+
+  * 0002-Make-sure-that-that-cgroup-and-the-controller-are-se.patch: when
+    looking a controller under /cgroup, make sure that '/' separates them,
+    so that '/cgroup@freezer' is not a valid path.  (LP: #1413405)
+  * 0003-free-d-at-program-end.patch: free the lxcfs_state before exiting.
+
+ -- Serge Hallyn <serge.hallyn@ubuntu.com>  Sun, 19 Apr 2015 08:44:06 -0500
+
+lxcfs (0.7-0ubuntu2) vivid; urgency=medium
+
+  * Cherry-pick a fix to the LXC hook.
+    - Fixes problems with checkpoint/restore due to double-mounting
+      /sys/fs/cgroup
+    - Respect the container's configuration by skipping lxcfs if
+      /sys/fs/cgroup isn't writable.
+    - Skip the cgmanager handling code as that was only applicable if we
+      were starting from a clean tmpfs.
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Tue, 07 Apr 2015 16:21:01 -0400
+
+lxcfs (0.7-0ubuntu1) vivid; urgency=medium
+
+  * Upstream release 0.7, which has fixes for handling crashed children
+    and in particular for working around a glibc fork bug
+    (https://sourceware.org/bugzilla/show_bug.cgi?id=15392)
+
+ -- Serge Hallyn <serge.hallyn@ubuntu.com>  Fri, 03 Apr 2015 15:20:15 -0500
+
+lxcfs (0.6-0ubuntu3) vivid; urgency=medium
+
+  * Catch a nih_local which was not initialized to NULL (causing occasional
+    SEGVs)
+
+ -- Serge Hallyn <serge.hallyn@ubuntu.com>  Thu, 02 Apr 2015 20:31:29 -0500
+
+lxcfs (0.6-0ubuntu2) vivid; urgency=medium
+
+  * Cherry-pick testcase fix from upstream.
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Mon, 16 Feb 2015 23:44:24 -0500
+
+lxcfs (0.6-0ubuntu1) vivid; urgency=medium
+
+  * New upstream release (0.6):
+    - Fix cleanup for several function (missing close/free)
+    - Fix cpu-average in /proc/stat
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Mon, 16 Feb 2015 23:14:16 -0500
+
+lxcfs (0.5-0ubuntu3) vivid; urgency=medium
+
+  * Add the symlink check to the sysvinit script.
+  * Don't start lxcfs if /var/lib/lxcfs/proc exists as that typically
+    means we've had it bind-mounted from the host.
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Thu, 12 Feb 2015 13:42:51 -0500
+
+lxcfs (0.5-0ubuntu2) vivid; urgency=medium
+
+  * debian/lxcfs.service: Drop seddery of /etc/mtab, which turns /etc/mtab
+    into a file. Under systemd, /etc/mtab is always a symlink to /proc/mounts.
+    (LP: #1419623)
+  * debian/lxcfs.upstart: Don't sed /etc/mtab if it is a symlink, to avoid
+    reverting it back to a file if it was changed to be a symlink.
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Thu, 12 Feb 2015 10:41:57 +0100
+
+lxcfs (0.5-0ubuntu1) vivid; urgency=medium
+
+  * New upstream release (0.5):
+    - Fix LXC hook to stop messing with /etc/mtab
+    - Fix LXC hook to succeed even if /proc and /sys aren't mounted
+    - Update configure.ac to properly detect the cgmanager version
+  * Update init scripts to properly cleanup on crashes.
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Wed, 28 Jan 2015 17:09:11 +0100
+
+lxcfs (0.4-0ubuntu1) vivid; urgency=medium
+
+  * New upstream release (0.4):
+    - Fix a critical bug where the host's /proc could be replaced by the
+      container's on systems where / is mounted rshared (default with systemd).
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Fri, 23 Jan 2015 13:54:25 -0500
+
+lxcfs (0.3-0ubuntu1) vivid; urgency=medium
+
+  * New upstream release (0.3):
+    - Fix LXC configuration file location
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Wed, 21 Jan 2015 11:21:01 -0500
+
+lxcfs (0.2-0ubuntu1) vivid; urgency=medium
+
+  * New upstream release (0.2):
+    - Add a LXC hook and config snippet
+    - Fix the testsuite
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Tue, 20 Jan 2015 15:17:21 -0500
+
+lxcfs (0.1-0ubuntu3) vivid; urgency=medium
+
+  * Fix the upstart and systemd init scripts. (LP: #1410666)
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Wed, 14 Jan 2015 10:29:28 -0500
+
+lxcfs (0.1-0ubuntu2) vivid; urgency=medium
+
+  * Add test dependency on lxc.
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Tue, 13 Jan 2015 10:28:12 -0500
+
+lxcfs (0.1-0ubuntu1) vivid; urgency=low
+
+  * Initial release.
+  * Cherry-pick testsuite bugfix from upstream.
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Mon, 12 Jan 2015 15:07:20 -0500

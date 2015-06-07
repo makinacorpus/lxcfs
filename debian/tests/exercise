@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+
+for testcase in tests/test_*; do
+    ./${testcase}
+done
